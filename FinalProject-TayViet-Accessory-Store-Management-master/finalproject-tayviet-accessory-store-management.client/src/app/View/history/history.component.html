@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="mt-2">
+    <h2> History</h2>
+  </div>
+  <section class="ordered-section">
+    <article class="order-card">
+      <div class="order-header" data-bs-toggle="collapse" href="#ordered" role="button" aria-expanded="false" aria-controls="ordered">
+        <h3 class="m-0">Ordered</h3>
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7add40eb39598ace6db3b9db1d1d8bd10de14d648b916ed9f9f53fbb545c84b0?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="Order status icon" class="order-icon" />
+      </div>
+      <div class="collapse show" id="ordered">
+        <app-order-history [orderHistoryList]="ordredOrderListDisplay"></app-order-history>
+      </div>
+    </article>
+    <article class="order-card">
+      <div class="order-header" data-bs-toggle="collapse" href="#prepraring" role="button" aria-expanded="false" aria-controls="prepraring">
+        <h3 class="m-0">Prepraring</h3>
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7add40eb39598ace6db3b9db1d1d8bd10de14d648b916ed9f9f53fbb545c84b0?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="Order status icon" class="order-icon" />
+      </div>
+      <div class="collapse show" id="prepraring">
+        <app-order-history [orderHistoryList]="preparingOrderListDisplay"></app-order-history>
+      </div>
+    </article>
+    <article class="order-card">
+      <div class="order-header" data-bs-toggle="collapse" href="#completed" role="button" aria-expanded="false" aria-controls="completed">
+        <h3 class="m-0">Completed</h3>
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7add40eb39598ace6db3b9db1d1d8bd10de14d648b916ed9f9f53fbb545c84b0?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="Order status icon" class="order-icon" />
+      </div>
+      <div class="collapse show" id="completed">
+        <app-order-history [orderHistoryList]="completedOrderListDisplay"></app-order-history>
+      </div>
+    </article>
+    <article class="order-card">
+      <div class="order-header" data-bs-toggle="collapse" href="#other" role="button" aria-expanded="false" aria-controls="other">
+        <h3 class="m-0">Other</h3>
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7add40eb39598ace6db3b9db1d1d8bd10de14d648b916ed9f9f53fbb545c84b0?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="Order status icon" class="order-icon" />
+      </div>
+      <div class="collapse show" id="other">
+        <app-order-history [orderHistoryList]="otherOrderListDisplay"></app-order-history>
+      </div>
+    </article>
+  </section>
+</div>

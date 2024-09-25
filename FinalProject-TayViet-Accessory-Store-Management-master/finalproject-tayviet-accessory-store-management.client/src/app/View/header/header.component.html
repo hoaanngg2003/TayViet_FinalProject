@@ -1,0 +1,42 @@
+<header class="header">
+  <div class="header-content">
+    <a class="logo" routerLink="/home">TayViet Leather</a>
+    <nav class="nav">
+      <a routerLink="/home" class="nav-item">Home</a>
+      <a routerLink="/product" class="nav-item">Product</a>
+      <a routerLink="/about-us" class="nav-item">About us</a>
+      <a href="#" class="nav-item">Support</a>
+      <a href="#" class="nav-item">Contact</a>
+    </nav>
+    <div class="user-actions">
+      <img src="assets/icon/search.jpg" alt="seach" class="icon" />
+      <img src="assets/image/COD.jpg" alt="cart" class="icon" />
+      <img src="../../../public/assets/image/COD.jpg" alt="notication" class="icon" />
+      <div class="divider">
+      </div>
+<!--      <button class="login-button" hef="login">
+        Login
+      </button>-->
+      <ul class="nav justify-content-end mb-3">
+        <li class="nav-item" *ngIf="userInfo === null">
+          <a class="nav-link active" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="userInfo !== null">
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+              <img [src]="userInfo.image" alt="profile pic" width="32" height="32" class="rounded-circle me-2">
+              <strong>{{userInfo.username}}</strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+              <li><a class="dropdown-item" routerLink="/cart">Cart</a></li>
+              <li><a class="dropdown-item" routerLink="/history">history</a></li>
+              <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="signOut()">Sign out</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

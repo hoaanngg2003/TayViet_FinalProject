@@ -1,0 +1,179 @@
+<div class="container">
+  <div class="mt-2">
+    <h2> Shopping cart</h2>
+    <p class="cart-summary">You have {{ productDisplayList.length }} items in your cart</p>
+  </div>
+  <div class="row">
+    <div class="col-8 border-end">
+      <ul class="cart-items">
+        <ng-container *ngFor="let product of productDisplayList, let x = index">
+          <li class="cart-item" data-bs-toggle="collapse" [attr.href]="'#'+'p'+x" role="button" aria-expanded="false" [attr.aria-controls]="'p'+x">
+            <img [src]="product.image" [alt]="product.name" class="item-image col-3" />
+            <div class="item-details col-4">
+              <h3 class="item-name">Name: {{ product.name }}</h3>
+              <p class="item-description">Description: {{ product.description }}</p>
+            </div>
+            <div class="item-details col-3">
+              <h3 class="item-name">total: {{product.total.toFixed(2)}}</h3>
+            </div>
+            <div class="item-details col-2" type="button" routerLink="/product-detail/{{product.productID}}">
+              <button class="item-view-button">view</button>
+            </div>
+            <div class="d-flex justify-content-end col-1">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/88b86678521e84bc6fa462ccac18d4fe5b8165adc947c3ddb256b5c49f05e44f?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="" class="credit-card-icon" />
+            </div>       
+          </li>
+          <li class="collapse" [attr.id]="'p'+x">
+            <div class="d-flex align-items-end flex-column">
+              <div class="card card-body col-10 me-3">
+                <div class="row border-bottom my-2 p-1">
+                  <div class="item-details col-3 d-flex justify-content-center">
+                    <h3 class="item-name">Product Name</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">Quantity</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">Price</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">Sale</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">Total</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">Action</h3>
+                  </div>
+                </div>
+
+                <div class="row border-bottom my-2 p-1 align-items-center" *ngFor="let subProduct of product.subProductList">
+                  <div class="item-details col-3 d-flex justify-content-center">
+                    <h3 class="item-name">{{ subProduct.subProductName }}</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">{{ subProduct.quantity }}</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">{{ subProduct.cost.toFixed(2) }}</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">{{ subProduct.sale.toFixed(2) }}</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <h3 class="item-name">{{ ((1-subProduct.sale/ 100) * subProduct.cost * subProduct.quantity).toFixed(2) }}</h3>
+                  </div>
+                  <div class="item-details col-1 d-flex justify-content-center">
+                    <button class="btn bg-danger" (click)="deleteSubProduct(product.productID, subProduct.subProductName)">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </li>
+        </ng-container>
+      </ul>
+      <div class="checkout-content">
+        <div class="row">
+          <section class="delivery-section col-6">
+            <div class="address-container">
+              <div class="address-header">
+                <h2 class="address-title">Delivery address</h2>
+                <div class="address-select">
+                  <select class="form-select" [(ngModel)]="addressChoose">
+                    <option *ngFor="let address of userInfo.addressList" [value]="address" [selected]="address === addressChoose">{{ address }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="address-input">
+                <label for="streetAddress" class="visually-hidden">Street name, building, house number</label>
+                <input type="text" id="streetAddress" class="address-field" [value]="addressChoose"/>
+              </div>
+            </div>
+            <div class="phone-container d-flex">
+              <h3 class="phone-title d-inline">Recipient phone</h3>
+              <p class="phone-number d-inline ms-auto">{{userInfo.phoneNumber}}</p>
+            </div>
+            <div class="voucher-container d-flex">
+              <h3 class="voucher-title d-inline align-self-center">Voucher</h3>
+              <div class="voucher-input d-inline ms-auto">
+                <label for="voucherCode" class="visually-hidden">Add code</label>
+                <input type="text" id="voucherCode" class="voucher-field" placeholder="Add code" />
+              </div>
+            </div>
+          </section>
+
+
+          <section class="col-6">
+            <div class="summary-section">
+              <h2 class="summary-title">Order Summary</h2>
+              <hr class="summary-divider" />
+              <div class="summary-details">
+                <div class="summary-labels">
+                  <p>Order</p>
+                  <p>Delivery</p>
+                  <p>Discount</p>
+                  <p>Total</p>
+                </div>
+                <div class="summary-values">
+                  <p>${{ summary.order.toFixed(2) }}</p>
+                  <p>${{ summary.delivery.toFixed(2) }}</p>
+                  <p>${{ summary.discount.toFixed(2) }}</p>
+                  <p class="total-value fw-bold">
+                    Total: ${{ summary.total.toFixed(2) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <section class="payment-container">
+        <h2 class="payment-title">Payment Methods</h2>
+        <div class="payment-option form-check" role="button" (click)="paymentOption = 'PayOnDelivery'">
+          <span class="payment-option-text">Cost on Delivery</span>
+          <input class="form-check-input" type="radio" name="flexRadioDefault" [checked]="paymentOption === 'PayOnDelivery'">
+        </div>
+        <div class="payment-option form-check" role="button" (click)="paymentOption = 'BankTransfer'">
+          <span class="payment-option-text">Bank transfer</span>
+          <input class="form-check-input" type="radio" name="flexRadioDefault" [checked]="paymentOption === 'BankTransfer'">
+        </div>
+        <div class="payment-option form-check" data-bs-toggle="collapse" href="#cardOption" role="button" aria-expanded="false" aria-controls="cardOption">
+          <span class="payment-option-text">Credit Cards</span>
+          <div class="payment-option-controls">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/88b86678521e84bc6fa462ccac18d4fe5b8165adc947c3ddb256b5c49f05e44f?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="" class="credit-card-icon" />
+          </div>
+        </div>
+        <div class="collapse" id="cardOption">
+          <div class="credit-card-item">
+            <div class="credit-card-info ms-3">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1e94bfbb4546a1ba1af74e288aca09cc84dec2df646a48cd9ee76a4b537189c5?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="Vietcombank logo" class="credit-card-logo" />
+              <span class="credit-card-number">Vietcombank xxxx68</span>
+            </div>
+            <input class="form-check-input align-self-center" type="radio" name="flexRadioDefault">
+          </div>
+          <div class="credit-card-item">
+            <div class="credit-card-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1e94bfbb4546a1ba1af74e288aca09cc84dec2df646a48cd9ee76a4b537189c5?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="Techcombank logo" class="credit-card-logo" />
+              <span class="credit-card-number">Techcombank xxxx54</span>
+            </div>
+            <input class="form-check-input align-self-center" type="radio" name="flexRadioDefault">
+          </div>
+          <div class="credit-card-item">
+            <div class="credit-card-info ms-3">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1665dee33590c5442e178b1695be03ee0286c8ac3867076e4ec1565639406d5c?placeholderIfAbsent=true&apiKey=e51cda157a3647efb6a362a799ee758d" alt="" class="add-method-icon m-2" />
+              <span class="credit-card-number">Add New Card</span>
+            </div>
+          </div>
+          <button class="pay-now-button">
+            <span class="pay-now-text">Pay Now</span>
+          </button>
+        </div>
+        <button class="order-button" (click)="orderSubmit()">Order</button>
+      </section>
+
+    </div>
+  </div>
+</div>

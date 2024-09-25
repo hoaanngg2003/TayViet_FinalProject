@@ -1,0 +1,19 @@
+<section class="search-category p-5">
+  <div class="category-list">
+    <article class="category-item" *ngFor="let categorySection of categorySections">
+      <div class="category-content">
+        <h2 class="category-title">{{categorySection.name}}</h2>
+        <ul class="subcategory-list">
+          <li class="subcategory-content">
+            <div class="form-check" *ngFor="let category of categorySection.categoryList">
+              <input class="form-check-input" type="radio" value="{{category}}" id="{{category}}" name="flexRadioDefault">
+              <label class="form-check-label" for="{{category}}">
+                {{category}}
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>

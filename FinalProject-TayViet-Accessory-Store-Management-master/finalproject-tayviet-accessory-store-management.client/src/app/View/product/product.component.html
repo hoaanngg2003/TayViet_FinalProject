@@ -1,0 +1,25 @@
+<nav class="product-nav">
+  <ul class="nav-container">
+    <li class="nav-item nav-item-highlight"> New product</li>
+    <li class="nav-item"> Men</li>
+    <li class="nav-item"> Women</li>
+    <li class="nav-item"> Kids</li>
+    <li class="nav-item"> Watch</li>
+    <li class="nav-item"> Perfume</li>
+    <li class="nav-item"> Jewelry</li>
+    <li class="nav-item"> Gift</li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-2 border-end">
+      <app-category-option [categorySections]="categorySections"></app-category-option>
+    </div>
+    <div class="col-10">
+      <app-search-bar (searchSubmitEvent)="searchProductPage($event)"></app-search-bar>
+      <h3 class="m-3">Total: {{total}}</h3>
+      <app-product-list [products]="products" (onShowMore)="getProductPage($event)"></app-product-list>
+    </div>
+  </div>
+</div>

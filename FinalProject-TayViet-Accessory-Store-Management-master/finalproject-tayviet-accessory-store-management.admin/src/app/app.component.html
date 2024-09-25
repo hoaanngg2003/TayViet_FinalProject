@@ -1,0 +1,88 @@
+
+<div class="container-fluid d-flex">
+  <div class="d-flex flex-column col-md-2 flex-shrink-0 p-3">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap" /></svg>
+      <span class="fs-4">TayViet</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item" *ngFor="let item of sidebarItems; let i = index">
+        <a routerLink="/{{ item.link }}"
+           class="nav-link"
+           [ngClass]="{'active': activeItemIndex === i}"
+           (click)="setActiveItem(i)">
+          <svg class="bi me-2" width="16" height="16"><use [attr.xlink:href]="item.icon" /></svg>
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center link-dark text-decoration-none">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home" /></svg>
+        Help
+      </a>
+    </div>
+  </div>
+  <div class="container-fluid main-div">
+    <ul class="nav justify-content-end mb-3">
+      <li class="nav-item" *ngIf="userInfo === null">
+        <a class="nav-link active" routerLink="/login">Login</a>
+      </li>
+      <li type="button" class="nav-item" *ngIf="userInfo !== null">
+        <a class="d-flex nav-link link-dark text-decoration-none">
+          <img [src]="userInfo.image" alt="profile pic" width="32" height="32" class="rounded-circle me-2">
+          <strong>{{userInfo.username}}</strong>
+        </a>
+      <li class="nav-item" *ngIf="userInfo !== null" type="button">
+        <a class="nav-link active" (click)="signOut()">Sign out</a>
+      </li>
+    </ul>
+    
+
+      <!--<app-detail-account-view id="668de60cc02b4a5a7badfd1d"></app-detail-account-view>
+  <app-detail-product-view id="668734d6b060c690227b3879"></app-detail-product-view>
+  <app-account-manager-view></app-account-manager-view>
+  <app-alert-box></app-alert-box>
+  <app-message-box></app-message-box>-->
+      <!--    <app-table-list (message)="handleMessage($event)"> </app-table-list>-->
+      <!--  <app-user-info-box></app-user-info-box>-->
+      <!--<app-detail-product></app-detail-product>-->
+
+      <router-outlet></router-outlet>
+      
+      <!--    <app-message-box [message]="message" (click)="TriggerMessage()" (close)="close()"></app-message-box>-->
+      <!--    <div class="container-fluid">
+      <p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+
+              <table *ngIf="forecasts">
+                  <thead>
+                      <tr>
+                          <th>Date</th>
+                          <th>Temp. (C)</th>
+                          <th>Temp. (F)</th>
+                          <th>Summary</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let forecast of forecasts">
+                          <td>{{ forecast.date }}</td>
+                          <td>{{ forecast.temperatureC }}</td>
+                          <td>{{ forecast.temperatureF }}</td>
+                          <td>{{ forecast.summary }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  <app-admin-login></app-admin-login>
+  <app-alert-box></app-alert-box>
+  <app-table-list (message)="handleMessage($event)"> </app-table-list>
+  <app-user-info-box></app-user-info-box>
+  <app-detail-product></app-detail-product>
+  <app-message-box [message]="message" (click)="TriggerMessage()" (close)="close()"></app-message-box>-->
+
+  </div>
+</div>

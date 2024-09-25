@@ -1,0 +1,31 @@
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-inner">
+    <div *ngFor="let img of imgs; let fir = first" class="carousel-item main-img-container" [ngClass]="{'active': fir}">
+      <img [src]="img" class="object-fit-contain border h-100 w-100 main-img" alt="...">
+    </div>
+  </div>
+</div>
+
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <ng-container *ngFor="let img of imgs; let x = index">
+      <div class="carousel-item" [ngClass]="{ 'active': x === 0 }" *ngIf="x % 3 === 0">
+        <div class="row text-bg-secondary justify-content-center">
+          <ng-container *ngFor="let y of [0, 1, 2]">
+            <div class="btn p-2 w-auto" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="x + y">
+              <app-small-img [img]="imgs[x + y]"></app-small-img>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <button class="carousel-control-prev text-bg-secondary" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next text-bg-secondary" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

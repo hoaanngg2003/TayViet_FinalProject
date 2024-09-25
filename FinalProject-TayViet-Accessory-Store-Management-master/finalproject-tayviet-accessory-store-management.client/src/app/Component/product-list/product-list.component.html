@@ -1,0 +1,16 @@
+<section class="product-showcase">
+  <div class="row row-cols-5 mx-auto justify-content-center">
+    <article class="col-3 card p-3 m-3" *ngFor="let product of products">
+      <img loading="lazy" [src]="product.image" class="product-image" alt="Product 1" />
+      <div class="product-details">
+        <h3>{{product.name}}</h3>
+        <p class="product-description">{{product.description}}</p>
+        <div class="row">
+          <div class="align-self-center col">{{(product.subProductList[0].sellCost * (1 - product.subProductList[0].discount * 0.01)).toFixed(2)}}$</div>
+          <button class="btn buy-button col" (click)="navigateToDetail(product.id)"> Buy</button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <button class="see-more-button p-2 mt-2 mb-4" tabindex="0" (click)="ShowMoreProduct()">More</button>
+</section>

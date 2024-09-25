@@ -1,0 +1,80 @@
+<div class="container-sm d-flex container-fluid main-div">
+  <table class="table table-striped table-hover table-bordered border-primary table-sm">
+    <thead>
+      <tr class="table-primary">
+        <ng-container *ngFor="let column of columns">
+          <th *ngIf="!ignoredAttributes.includes(column)">
+            {{ column }}
+          </th>
+        </ng-container>
+        <th *ngIf="detailLink !== '' || mode !== 'view'"> Action </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-secondary" *ngFor="let row of data; let x = index">
+        <ng-container *ngFor="let column of columns">
+          <td *ngIf="!ignoredAttributes.includes(column)">
+            <ng-container [ngSwitch]="column">
+              <ng-container *ngSwitchCase="'image'">
+                <app-small-img [img]="row.image"></app-small-img>
+              </ng-container>
+              <ng-container *ngSwitchCase="'cart'">
+                <div class="row" *ngFor="let product of row.cart; let y = index">
+                  <div class="border-bottom">
+                    <app-small-img [img]="orderDisplay[x].cartList[y].image"></app-small-img>
+                    <p>ProductID: {{orderDisplay[x].cartList[y].productID}}</p>
+                    <p>ProductName: {{orderDisplay[x].cartList[y].name}}</p>
+                    <p>Total: {{orderDisplay[x].cartList[y].total}}</p>
+                    <p>
+                      SubProduct:
+                      <ng-container *ngFor="let subProduct of orderDisplay[x].cartList[y].subProductList">
+                        {{subProduct.subProductName}} x {{subProduct.quantity}},
+                      </ng-container>
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'history'">
+                <div class="form-floating">
+                  <select *ngIf="mode !== 'view'" class="form-select text-capitalize mb-2" [value]="row.history[0].state" [(ngModel)]="row.history[0].state" (change)="newOrderState(x, $event)">
+                    <option *ngFor="let option of orderStateOptions" [value]="option">{{ option }}</option>
+                  </select>
+                  <label *ngIf="mode !== 'view'" for="{{ column }}">{{ column }}</label>
+                  <div>
+                    <p *ngFor="let historyState of row.history">
+                      {{historyState.state}}: {{formatDate(historyState.orderTime)}}
+
+                    </p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'categoryList'">
+                <div class="container text-center ms-2">
+                  <div class="row row-cols-auto">
+                    <ng-container *ngFor="let category of row['categoryList']; let y = index">
+                      <app-category-tag [category]="category" [mode]="mode" [index]="y" (categoryDeteleTrigger)="handleCategoryDelete(x, $event)" (categoryChangeTrigger)="handleCategoryChange(x, $event)"></app-category-tag>
+                    </ng-container>
+                    <div class="p-2 position-relative" *ngIf="mode !== 'view'">
+                      <app-button class="g-col-6 position-absolute start-50 top-50 translate-middle" color="green" label="+" (buttonClick)="addCategory(x)"></app-button>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'name'">
+                <input class="align-text-center m-0 p-0" [ngClass]="{'form-control': mode !== 'view', 'form-control-plaintext' : mode === 'view'}" type="text" [readonly]="mode === 'view'" [value]="row[column]" [(ngModel)]="row[column]" placeholder="" (blur)="changeCategorySectionName(x)">
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                {{ row[column]
+                    }}
+              </ng-container>
+            </ng-container>
+          </td>
+        </ng-container>
+        <td *ngIf="detailLink !== ''"> <button routerLink="/{{detailLink}}/{{row.id}}" class="btn btn-primary" [queryParams]="{ mode: 'view' }">Edit</button> </td>
+        <td *ngIf="mode !== 'view'" class="position-relative">
+          <app-button class="g-col-6 position-absolute start-50 top-50 translate-middle" color="red" label="Delete" (buttonClick)="deleteCategorySection(x)"></app-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

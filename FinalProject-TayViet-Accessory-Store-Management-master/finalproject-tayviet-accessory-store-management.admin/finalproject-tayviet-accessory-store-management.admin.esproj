@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Allows the build (or compile) script located on package.json to run on Build -->
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+    <!-- Folder where production build objects will be placed -->
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\finalproject-tayviet-accessory-store-management.client\</BuildOutputFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="src\app\admin-page\**" />
+    <None Remove="src\app\main-adimn-page\**" />
+    <None Remove="src\app\main-admin-page\**" />
+    <None Remove="src\app\mainpage\**" />
+    <TypeScriptConfiguration Remove="src\app\admin-page\**" />
+    <TypeScriptConfiguration Remove="src\app\main-adimn-page\**" />
+    <TypeScriptConfiguration Remove="src\app\main-admin-page\**" />
+    <TypeScriptConfiguration Remove="src\app\mainpage\**" />
+  </ItemGroup>
+</Project>
